@@ -9,11 +9,5 @@
 
 namespace Fresa::Component
 {
-    struct Test {
-        Serialize(Test, i, j);
-        int i;
-        float j;
-    };
-    
-    using ComponentType = std::variant<Test>;
+    using ComponentType = std::variant<>;
 }

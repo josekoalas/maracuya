@@ -1,6 +1,3 @@
-[submodule "fresa"]
-	path = raymarching/fresa
-	url = https://github.com/josekoalas/fresa.git
 [submodule "deps/glm"]
 	path = raymarching/deps/glm
 	url = https://github.com/g-truc/glm.git
@@ -14,3 +11,6 @@
 	path = raymarching/deps/imgui
 	url = https://github.com/ocornut/imgui
 	branch = docking
+[submodule "raymarching/fresa"]
+	path = raymarching/fresa
+	url = https://github.com/josekoalas/fresa.git
