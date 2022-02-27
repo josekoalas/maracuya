@@ -6,4 +6,4 @@ r [main]
 
 # pipelines/shaders
 
-p draw_test main vd_color
+p test main vd_win

@@ -1,0 +1,44 @@
+float sdf_mandelbulb(vec3 p, int steps) {
+    vec3 w = p;
+    float m = dot(w, w);
+
+    float dz = 1.0;
+        
+    for(int i = 0; i < steps; i++)
+    {
+        dz = 8 * pow(sqrt(m), 7.0)*dz + 1.0;
+        float r = length(w);
+        float b = 8 * acos(w.y / r);
+        float a = 8 * pow(atan(w.x, w.z),2);
+        w = p + pow(r, 8) * vec3(sin(b) * sin(a), cos(b), sin(b) * cos(a));
+
+        m = dot(w, w);
+        if(m > 256.0)
+            break;
+    }
+    return 0.25*log(m)*sqrt(m)/dz;
+}
+
+float sdf_mandelbox(vec3 p) {
+    float scale = 2;
+    vec3 offset = p;
+    float dr = 1.0;
+    for (int n = 0; n < 10; n++)
+    {
+        p = clamp(p, -1.0, 1.0) * 2.0 - p;
+        
+        float r2 = dot(p,p);
+        if (r2 < 0.5) {
+            float temp = 2.0; p *= temp; dr *= temp;
+        }
+        else if (r2 < 1.0) {
+            float temp = 1.0 / r2; p *= temp; dr *= temp;
+        }
+        
+        p = scale * p + offset;
+        dr = dr * abs(scale) + 1.0;
+    }
+    float r = length(p);
+    return r / abs(dr);
+}
+
