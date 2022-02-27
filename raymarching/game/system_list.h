@@ -12,6 +12,12 @@
 
 namespace Fresa::System
 {
+    struct UniformBuffer {
+        float time;
+    };
+    
+    inline Clock::time_point start_time = time();
+    
     struct SomeSystem : PhysicsUpdate<SomeSystem, PRIORITY_MOVEMENT>, RenderUpdate<SomeSystem> {
         inline static void update() { }
         
@@ -23,6 +29,13 @@ namespace Fresa::System
                 Graphics::camera.pos = glm::vec3(0.0f);
                 init = true;
             }
+            
+            UniformBuffer buffer{};
+            buffer.time = sec(time() - start_time);
+            
+            for (auto &uniforms : Graphics::api.pipelines.at("test").uniform_buffers)
+                for (auto &u : uniforms)
+                    Graphics::API::updateUniformBuffer(Graphics::api, u, buffer);
         }
     };
 }
