@@ -1,4 +1,10 @@
-# main render pass
+# render description file
+# a - attachment            a name type size
+# s - subpass               s name [attachment list...]
+# r - renderpass            r [subpass list...]
+# d/p - shader              p shader subpass vertices       d - draw shader, p - post shader
+
+### main render pass
 
 a swapchain
 s main [swapchain]
@@ -6,4 +12,4 @@ r [main]
 
 # pipelines/shaders
 
-p test main vd_win
+p test main pos2

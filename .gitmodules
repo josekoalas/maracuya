@@ -4,6 +4,7 @@
 [submodule "deps/spirv-cross"]
 	path = raymarching/deps/spirv-cross
 	url = https://github.com/KhronosGroup/SPIRV-Cross
+	ignore = dirty
 [submodule "deps/vma"]
 	path = raymarching/deps/vma
 	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator

@@ -10,6 +10,8 @@
 #include "r_graphics.h"
 #include "f_time.h"
 
+using namespace Fresa::Graphics;
+
 namespace Fresa::System
 {
     struct UniformBuffer {
@@ -24,18 +26,23 @@ namespace Fresa::System
         inline static void render() {
             static bool init = false;
             if (not init) {
-                Graphics::camera.proj_type = Graphics::PROJECTION_NONE;
-                Graphics::updateCameraProjection(Graphics::camera);
-                Graphics::camera.pos = glm::vec3(0.0f);
+                camera.proj_type = PROJECTION_NONE;
+                updateCameraProjection(camera);
+                camera.pos = glm::vec3(0.0f);
                 init = true;
             }
             
             UniformBuffer buffer{};
             buffer.time = sec(time() - start_time);
             
-            for (auto &uniforms : Graphics::api.pipelines.at("test").uniform_buffers)
+            #if defined USE_VULKAN
+            for (auto &uniforms : api.pipelines.at("test").uniform_buffers)
                 for (auto &u : uniforms)
-                    Graphics::API::updateUniformBuffer(Graphics::api, u, buffer);
+                    API::updateUniformBuffer(api, u, buffer);
+            #elif defined USE_OPENGL
+            for (auto &[key, u] : API::shaders.at("test").uniforms)
+                API::updateUniformBuffer(api, BufferData{u}, buffer);
+            #endif
         }
     };
 }

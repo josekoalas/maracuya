@@ -18,6 +18,9 @@ void game_loop_emscripten() { Game::update(); }
 int main (int argv, char** args) {
     log::debug("Starting main");
     
+    Config::name = "Raymarching in Fresa";
+    Config::window_size = {720, 720};
+    
     //: Initialize game
     bool running = Game::init();
     
